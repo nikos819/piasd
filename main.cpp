@@ -1,13 +1,13 @@
-#include <iostream>
+#include
 using namespace std;
 
-struct drzewo {
+struct drzewo { // Definicja struktury pojedynczego wêz³a drzewa
     int liczba;
     drzewo* lewy;
     drzewo* prawy;
 };
 
-drzewo* dodaj(drzewo* d, int w) {
+drzewo* dodaj(drzewo* d, int w) { // funkcja globalna dodawania do drzewa
     if(d == nullptr)
     {
         drzewo* nowy = new drzewo;
@@ -17,28 +17,29 @@ drzewo* dodaj(drzewo* d, int w) {
         return nowy;
     }
 
-    if(w < d->liczba){
+    if(w < d->liczba){ // jesli dodawana wartosc jest mniejsza to w lewo
         d->lewy = dodaj(d->lewy, w);
-    } else if (w >= d->liczba) {
+    } else if (w >= d->liczba) { // jesli wieksza lub rowna to w prawo
         d->prawy = dodaj(d->prawy, w);
     }
 
-    return d;
+    return d; // Zwróæ zaktualizowany wskaŸnik na wêze³
 }
 
 void wyswietl(drzewo* d)
 {
-    if(d == nullptr) return;
+    if(d == nullptr) return; // Warunek stopu – jeœli wêze³ nie istnieje, zakoñcz funkcjê
 
-    wyswietl(d->prawy);
-    cout << d->liczba << " ";
-    wyswietl(d->lewy);
+    wyswietl(d->prawy);       // Najpierw odwiedŸ prawy poddrzewo (kolejnoœæ malej¹ca)
+    cout << d->liczba << " "; // Wypisz wartoœæ bie¿¹cego wêz³a
+    wyswietl(d->lewy);        // Na koniec odwiedŸ lewe poddrzewo
 }
 
 int main() {
     cout << "Elementy drzewa: ";
-    drzewo* d = nullptr;
+    drzewo* d = nullptr; // Inicjalizacja pustego wskaŸnika na korzeñ drzewa
 
+    // Dodawanie kolejnych liczb do drzewa binarnego
     d = dodaj(d, 10);
     d = dodaj(d, 5);
     d = dodaj(d, 15);
@@ -49,8 +50,7 @@ int main() {
     d = dodaj(d, 2);
     d = dodaj(d, 4);
 
-
-    wyswietl(d);
+    wyswietl(d); // Wywo³anie funkcji wypisuj¹cej elementy
 
     cout << endl;
 
